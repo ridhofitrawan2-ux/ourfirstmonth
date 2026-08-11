@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30 Hari Bersama Puput ♡</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display (Serif) & Quicksand (Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Quicksand:wght@300;400;500;600&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --cream: #FFF8F2;
+            --dusty-pink: #E9B8C5;
+            --soft-lavender: #C9BDD9;
+            --dark-brown: #4A3940;
+        }
+        body {
+            background-color: var(--cream);
+            color: var(--dark-brown);
+            font-family: 'Quicksand', sans-serif;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, .serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .handwritten {
+            font-family: 'Dancing Script', cursive;
+        }
+        .bg-cream { background-color: var(--cream); }
+        .bg-pink { background-color: var(--dusty-pink); }
+        .bg-lavender { background-color: var(--soft-lavender); }
+        .bg-brown { background-color: var(--dark-brown); }
+        .text-brown { color: var(--dark-brown); }
+        .text-pink { color: var(--dusty-pink); }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--cream); }
+        ::-webkit-scrollbar-thumb { background: var(--dusty-pink); border-radius: 10px; }
+
+        /* Polaroid Styles */
+        .polaroid {
+            background: #fff;
+            padding: 15px 15px 40px 15px;
+            box-shadow: 0 4px 15px rgba(74, 57, 64, 0.15);
+            transition: transform 0.4s ease;
+        }
+        .polaroid:hover {
+            transform: scale(1.05) rotate(0deg) !important;
+            z-index: 10;
+        }
+
+        /* Flip Card */
+        .flip-card { perspective: 1000px; height: 200px; width: 100%; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .flip-card-front { background-color: var(--soft-lavender); color: white; }
+        .flip-card-back { background-color: #fff; color: var(--dark-brown); transform: rotateY(180deg); border: 1px solid var(--dusty-pink); }
+
+        /* Constellation Star */
+        .star { position: absolute; background: #fff; border-radius: 50%; cursor: pointer; transition: transform 0.3s; animation: twinkle 3s infinite ease-in-out; }
+        .star:hover { transform: scale(1.5); box-shadow: 0 0 10px #fff; }
+        @keyframes twinkle { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+        /* Checklist */
+        .checklist-item { cursor: pointer; transition: all 0.3s; }
+        .checklist-item:hover { color: var(--dusty-pink); }
+        
+        /* Paper Texture for Letter */
+        .paper {
+            background-color: #fff;
+            background-image: repeating-linear-gradient(transparent, transparent 31px, #eee 32px);
+            box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+        }
+        
+        .hidden-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; }
+        .hidden-content.show { max-height: 500px; }
+    </style>
+</head>
+<body>
+
+    <!-- 01 - Opening / Landing Page -->
+    <section class="relative h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://z-cdn-media.chatglm.cn/files/803a4cd5-6565-43df-9d23-6ce113966aa8.jpeg?auth_key=1886421420-b7111853ec874b35acfe0b4cdcd31225-0-d192dfcc7e660a1e3a677d88643264c4" alt="Cover" class="w-full h-full object-cover blur-sm scale-105 opacity-70">
+            <div class="absolute inset-0 bg-cream/60"></div>
+        </div>
+        <div class="relative z-10 flex flex-col items-center">
+            <h2 class="handwritten text-3xl text-pink mb-4" data-aos="fade-down">♡ OUR FIRST MONTH ♡</h2>
+            <div class="flex gap-4 text-brown font-light text-lg md:text-xl mb-8" data-aos="fade-up" data-aos-delay="200">
+                <span>30 hari.</span>
+                <span>720 jam.</span>
+                <span>43.200 menit.</span>
+            </div>
+            <h1 class="serif text-3xl md:text-5xl max-w-2xl leading-relaxed mb-10" data-aos="fade-up" data-aos-delay="400">
+                Dan semuanya terasa lebih indah karena ada kamu.
+            </h1>
+            <p class="serif italic text-brown/80 max-w-md mb-8" data-aos="fade-up" data-aos-delay="600">
+                "Untuk Puput, terima kasih sudah menjadi bagian paling manis dari satu bulan terakhirku."
+            </p>
+            <button onclick="document.getElementById('section-2').scrollIntoView({behavior: 'smooth'})" class="bg-brown text-cream px-8 py-3 rounded-full text-lg hover:bg-pink transition-colors duration-300 shadow-lg" data-aos="zoom-in" data-aos-delay="800">
+                ✦ Mulai perjalanan kita
+            </button>
+        </div>
+    </section>
+
+    <!-- 02 - Tentang Kita -->
+    <section id="section-2" class="py-24 px-6 flex flex-col items-center text-center max-w-3xl mx-auto">
+        <h2 class="handwritten text-4xl text-pink mb-8" data-aos="fade-up">A little story about us ♡</h2>
+        <div class="space-y-4 text-lg leading-relaxed text-brown/90" data-aos="fade-up" data-aos-delay="200">
+            <p>Aku nggak tahu kapan tepatnya semuanya mulai terasa berbeda.</p>
+            <p class="serif italic">Tapi aku tahu satu hal...</p>
+            <p>30 hari terakhir, aku punya seseorang yang selalu berhasil membuat hariku terasa sedikit lebih baik.</p>
+            <p>Dan orang itu adalah kamu.</p>
+        </div>
+
+        <div class="flex flex-col md:flex-row items-center justify-center gap-8 mt-16" data-aos="zoom-in" data-aos-delay="400">
+            <div class="polaroid -rotate-3" style="width: 200px;">
+                <img src="https://z-cdn-media.chatglm.cn/files/d0654c1a-dcb6-4251-b818-b64bb1594db9.jpeg?auth_key=1886421420-55de908301014404a03cc7a890cbdb72-0-08d87c6af0008e691e586062cfa3cd80" class="w-full h-48 object-cover" alt="Kamu">
+                <p class="text-center mt-2 text-sm text-brown/70">Kamu</p>
+            </div>
+            <div class="text-4xl text-pink">♡</div>
+            <div class="text-center">
+                <p class="serif text-2xl">1 MONTH</p>
+                <p class="text-pink">♡</p>
+            </div>
+            <div class="text-4xl text-pink">♡</div>
+            <div class="polaroid rotate-3" style="width: 200px;">
+                <img src="https://z-cdn-media.chatglm.cn/files/4aa20793-cf85-43a3-91f9-1ef0eb8f46ac.jpeg?auth_key=1886421420-76c4bfa6b1b74464ac024f32be6b806b-0-b8cae5e857d99c404710cfd39c708d53" class="w-full h-48 object-cover" alt="Puput">
+                <p class="text-center mt-2 text-sm text-brown/70">Puput</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 03 - Timeline -->
+    <section class="py-24 px-6 bg-lavender/20">
+        <div class="max-w-2xl mx-auto">
+            <h2 class="serif text-4xl text-center mb-16" data-aos="fade-up">OUR LITTLE TIMELINE ♡</h2>
+            <div class="relative border-l-2 border-dusty-pink pl-8 ml-4 space-y-12">
+                
+                <div class="relative" data-aos="fade-right">
+                    <div class="absolute -left-[37px] w-4 h-4 rounded-full bg-pink border-4 border-cream"></div>
+                    <h3 class="serif text-2xl text-pink">DAY 01</h3>
+                    <p class="mt-2 cursor-pointer hover:text-pink transition" onclick="toggleTimeline(this)">It all started... <span class="text-sm">(klik untuk lihat)</span></p>
+                    <p class="hidden mt-2 italic text-brown/70">"Awal mula semuanya dimulai. Sebuah langkah kecil yang ternyata membawa banyak perubahan."</p>
+                </div>
+
+                <div class="relative" data-aos="fade-right">
+                    <div class="absolute -left-[37px] w-4 h-4 rounded-full bg-pink border-4 border-cream"></div>
+                    <h3 class="serif text-2xl text-pink">DAY 07</h3>
+                    <p class="mt-2 cursor-pointer hover:text-pink transition" onclick="toggleTimeline(this)">Mulai terbiasa dengan kehadiranmu <span class="text-sm">(klik untuk lihat)</span></p>
+                    <p class="hidden mt-2 italic text-brown/70">"Hari ketika aku mulai sadar kalau ngobrol sama kamu ternyata bisa bikin lupa waktu."</p>
+                </div>
+
+                <div class="relative" data-aos="fade-right">
+                    <div class="absolute -left-[37px] w-4 h-4 rounded-full bg-pink border-4 border-cream"></div>
+                    <h3 class="serif text-2xl text-pink">DAY 14</h3>
+                    <p class="mt-2 cursor-pointer hover:text-pink transition" onclick="toggleTimeline(this)">Ternyata sudah dua minggu 🥹 <span class="text-sm">(klik untuk lihat)</span></p>
+                    <p class="hidden mt-2 italic text-brown/70">"Separuh perjalanan bulan pertama kita. Dan aku masih mau lanjut."</p>
+                </div>
+
+                <div class="relative" data-aos="fade-right">
+                    <div class="absolute -left-[37px] w-4 h-4 rounded-full bg-pink border-4 border-cream"></div>
+                    <h3 class="serif text-2xl text-pink">DAY 21</h3>
+                    <p class="mt-2 cursor-pointer hover:text-pink transition" onclick="toggleTimeline(this)">Makin banyak cerita <span class="text-sm">(klik untuk lihat)</span></p>
+                    <p class="hidden mt-2 italic text-brown/70">"Makin lama, makin banyak hal kecil yang kita bagi. Dan itu bikin nyaman."</p>
+                </div>
+
+                <div class="relative" data-aos="fade-right">
+                    <div class="absolute -left-[37px] w-4 h-4 rounded-full bg-pink border-4 border-cream"></div>
+                    <h3 class="serif text-2xl text-pink">DAY 30</h3>
+                    <p class="mt-2 cursor-pointer hover:text-pink transition" onclick="toggleTimeline(this)">WE MADE IT ♡ <span class="text-sm">(klik untuk lihat)</span></p>
+                    <p class="hidden mt-2 italic text-brown/70">"Satu bulan penuh. Terima kasih sudah mau sampai sini bersamaku."</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 04 - Gallery Scrapbook -->
+    <section class="py-24 px-6 overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="serif text-4xl text-center mb-16" data-aos="fade-up">OUR LITTLE MEMORIES</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
+                <div class="polaroid -rotate-3" data-aos="fade-up">
+                    <img src="https://z-cdn-media.chatglm.cn/files/dc0b6628-ab6f-432b-ae98-c3da3e3e1d94.jpeg?auth_key=1886421420-b0db70547d0f4a36a2e618feb64db97e-0-341483420100cfd3c4aa5c99dba84569" class="w-full h-64 object-cover" alt="Memory 1">
+                    <p class="handwritten text-center mt-3 text-lg text-pink">one of my favorite days</p>
+                </div>
+                <div class="polaroid rotate-2 mt-12" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://z-cdn-media.chatglm.cn/files/20b7e42b-22cc-47a0-bc04-63b57d02e850.jpg?auth_key=1886421420-81f1b6f3384e495bbf98f0501361d9aa-0-fb4e8c45eb77cdeb8a5eef72a2cef594" class="w-full h-64 object-cover" alt="Memory 2">
+                    <p class="handwritten text-center mt-3 text-lg text-pink">you and your little world</p>
+                </div>
+                <div class="polaroid -rotate-1" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://z-cdn-media.chatglm.cn/files/72c89f26-a7d1-4f8d-9da3-286c9473f392.jpeg?auth_key=1886421420-90e5a9fe89a74f3a818ce23cf8e97d8f-0-697b49eac2aa5ba6543811f54244463c" class="w-full h-64 object-cover" alt="Memory 3">
+                    <p class="handwritten text-center mt-3 text-lg text-pink">random cute days</p>
+                </div>
+                <div class="polaroid rotate-3 mt-8" data-aos="fade-up">
+                    <img src="https://z-cdn-media.chatglm.cn/files/08a95766-d639-4860-a2c3-606e78f91a66.jpeg?auth_key=1886421420-40bc6012cc5b489ab01f1fad94a028db-0-ca4b785d4a85a7c2461e302eba86ee8f" class="w-full h-64 object-cover" alt="Memory 4">
+                    <p class="handwritten text-center mt-3 text-lg text-pink">softest hugs ♡</p>
+                </div>
+                <div class="polaroid -rotate-2" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://z-cdn-media.chatglm.cn/files/dcb10c7c-a9d1-425d-8648-e6ecfcd1bf40.jpeg?auth_key=1886421420-199068277e824a19a02fc20915811b21-0-07ef20772e4b4c0169e54a5e08580ef6" class="w-full h-64 object-cover" alt="Memory 5">
+                    <p class="handwritten text-center mt-3 text-lg text-pink">that smile tho</p>
+                </div>
+                <div class="polaroid rotate-1 mt-12" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://z-cdn-media.chatglm.cn/files/67e77e57-d2ba-4924-acb6-8c8f345bb625.jpeg?auth_key=1886421420-cee435c6bf874366993a824a934f8f3d-0-b494757906b0069cce10adb7cc543a1b" class="w-full h-64 object-cover" alt="Memory 6">
+                    <p class="handwritten text-center mt-3 text-lg text-pink">my pretty girl</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 05 - Things I Love About You -->
+    <section class="py-24 px-6 bg-pink/10">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="serif text-4xl text-center mb-4" data-aos="fade-up">10 things I love about you ♡</h2>
+            <p class="text-center mb-12 text-brown/70" data-aos="fade-up">(Klik kartunya untuk membuka ya)</p>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Cards generated via JS for cleanliness, but here are manual for template -->
+                <div class="flip-card" data-aos="flip-left" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front"><span class="text-4xl">♡ 01</span><span class="mt-2 font-bold">OPEN ME</span></div>
+                        <div class="flip-card-back"><p class="serif text-lg">Your smile</p></div>
+                    </div>
+                </div>
+                <div class="flip-card" data-aos="flip-left" data-aos-delay="50" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front"><span class="text-4xl">♡ 02</span><span class="mt-2 font-bold">OPEN ME</span></div>
+                        <div class="flip-card-back"><p class="serif text-lg">The way you talk</p></div>
+                    </div>
+                </div>
+                <div class="flip-card" data-aos="flip-left" data-aos-delay="100" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front"><span class="text-4xl">♡ 03</span><span class="mt-2 font-bold">OPEN ME</span></div>
+                        <div class="flip-card-back"><p class="serif text-lg">Your little expressions</p></div>
+                    </div>
+                </div>
+                <div class="flip-card" data-aos="flip-left" data-aos-delay="150" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front"><span class="text-4xl">♡ 04</span><span class="mt-2 font-bold">OPEN ME</span></div>
+                        <div class="flip-card-back"><p class="serif text-sm">How you make ordinary days feel special</p></div>
+                    </div>
+                </div>
+                <div class="flip-card" data-aos="flip-left" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front"><span class="text-4xl">♡ 05</span><span class="mt-2 font-bold">OPEN ME</span></div>
+                        <div class="flip-card-back"><p class="serif text-sm">The way you are simply you</p></div>
+                    </div>
+                </div>
+                 <div class="flip-card" data-aos="flip-left" data-aos-delay="50" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front"><span class="text-4xl">♡ 06</span><span class="mt-2 font-bold">OPEN ME</span></div>
+                        <div class="flip-card-back"><p class="serif text-sm">Cara kamu marah yang tetap lucu</p></div>
+                    </div>
+                </div>
+                 <div class="flip-card" data-aos="flip-left" data-aos-delay="100" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front"><span class="text-4xl">♡ 07</span><span class="mt-2 font-bold">OPEN ME</span></div>
+                        <div class="flip-card-back"><p class="serif text-sm">Perhatian kecilmu yang ga nyangka aku sadar</p></div>
+                    </div>
+                </div>
+                 <div class="flip-card" data-aos="flip-left" data-aos-delay="150" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front"><span class="text-4xl">♡ 08</span><span class="mt-2 font-bold">OPEN ME</span></div>
+                        <div class="flip-card-back"><p class="serif text-sm">Suara kamu yang bikin tenang</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 06 - Things You Don't Know -->
+    <section class="py-24 px-6 text-center max-w-2xl mx-auto">
+        <h2 class="handwritten text-4xl text-pink mb-8" data-aos="fade-up">psst... Puput, you probably don't know this yet.</h2>
+        <div class="space-y-6 text-lg leading-relaxed" data-aos="fade-up" data-aos-delay="200">
+            <p class="polaroid inline-block -rotate-1 max-w-md">“Kadang aku senyum sendiri kalau lihat notif dari kamu.”</p><br>
+            <p class="polaroid inline-block rotate-2 max-w-md mt-4">“Ada beberapa chat kamu yang pernah aku baca ulang.”</p><br>
+            <p class="polaroid inline-block -rotate-2 max-w-md mt-4">“Aku mungkin nggak selalu bilang, tapi aku senang banget punya kamu.”</p><br>
+            <p class="serif italic text-xl mt-8 text-brown/80">"Dan ternyata satu bulan bisa terasa cepat banget kalau dijalani sama orang yang tepat."</p>
+        </div>
+    </section>
+
+    <!-- 07 - Love Letter -->
+    <section class="py-24 px-6">
+        <div class="max-w-2xl mx-auto paper p-8 md:p-12 shadow-xl rounded-sm" data-aos="zoom-in">
+            <h2 class="handwritten text-4xl text-center text-pink mb-8">Dear Puput,</h2>
+            <div class="space-y-4 text-brown/90 leading-relaxed font-light">
+                <p>Happy 1 month, sayang. ♡</p>
+                <p>Nggak terasa ya, ternyata kita sudah sampai di satu bulan.</p>
+                <p>Mungkin satu bulan bukan waktu yang panjang...</p>
+                <p>Tapi dalam satu bulan ini, ada banyak hal kecil yang jadi berarti karena kamu.</p>
+                <p>Terima kasih karena sudah hadir. Terima kasih untuk semua cerita, semua tawa, semua perhatian, dan semua hal kecil yang mungkin menurut kamu biasa saja, tapi buat aku berarti.</p>
+                <p>Aku nggak tahu perjalanan kita akan sejauh apa. Tapi untuk sekarang... aku cuma ingin menikmati setiap hari yang kita punya.</p>
+                <p class="text-right serif">Happy first month, Puput. ♡<br><span class="text-sm italic">From someone who loves you.</span></p>
+            </div>
+            <div class="text-center mt-8">
+                <button onclick="toggleLetter()" class="text-pink underline hover:text-brown transition">[ Continue reading... ]</button>
+                <div id="extraLetter" class="hidden-content text-left mt-4 text-brown/80 italic text-sm">
+                    <p>"Sebenarnya masih banyak yang mau aku tulis, tapi takut kepanjangan nanti kamu bosan bacanya hahaha. Intinya, makasih udah jadi tempat ternyaman aku sebulan terakhir. Semoga bulan-bulan selanjutnya kita bisa makin deket ya."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 08 - Playlist -->
+    <section class="py-24 px-6 bg-lavender/20">
+        <div class="max-w-2xl mx-auto text-center">
+            <h2 class="serif text-4xl mb-12" data-aos="fade-up">♫ OUR SONGS</h2>
+            <div class="space-y-6 text-left" data-aos="fade-up" data-aos-delay="200">
+                <div class="bg-white p-4 rounded-lg shadow-sm flex items-center justify-between hover:translate-x-2 transition">
+                    <div><p class="font-bold serif text-lg">01. Song Name</p><p class="text-sm text-brown/60">— because this reminds me of you</p></div>
+                    <span class="text-2xl">▶️</span>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm flex items-center justify-between hover:translate-x-2 transition">
+                    <div><p class="font-bold serif text-lg">02. Song Name</p><p class="text-sm text-brown/60">— this one feels like us</p></div>
+                    <span class="text-2xl">▶️</span>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm flex items-center justify-between hover:translate-x-2 transition">
+                    <div><p class="font-bold serif text-lg">03. Song Name</p><p class="text-sm text-brown/60">— for late night conversations</p></div>
+                    <span class="text-2xl">▶️</span>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm flex items-center justify-between hover:translate-x-2 transition">
+                    <div><p class="font-bold serif text-lg">04. Song Name</p><p class="text-sm text-brown/60">— our little soundtrack</p></div>
+                    <span class="text-2xl">▶️</span>
+                </div>
+            </div>
+            <p class="mt-8 text-sm text-brown/50 italic">*Nanti bisa diganti lagu favorit kalian ya</p>
+        </div>
+    </section>
+
+    <!-- 09 - If Our Relationship Was... -->
+    <section class="py-24 px-6 max-w-3xl mx-auto">
+        <h2 class="serif text-4xl text-center mb-12" data-aos="fade-up">Kalau hubungan kita adalah...</h2>
+        <div class="grid md:grid-cols-2 gap-8 text-center">
+            <div class="p-6 border-2 border-dashed border-pink rounded-lg" data-aos="zoom-in">
+                <p class="text-3xl mb-2">🌷</p>
+                <h3 class="serif text-xl text-pink mb-2">Sebuah Warna</h3>
+                <p>Dusty Pink, karena lembut tapi tetap bikin deg-degan.</p>
+            </div>
+            <div class="p-6 border-2 border-dashed border-pink rounded-lg" data-aos="zoom-in" data-aos-delay="100">
+                <p class="text-3xl mb-2">🌙</p>
+                <h3 class="serif text-xl text-pink mb-2">Sebuah Tempat</h3>
+                <p>Tempat yang bikin aku nyaman tanpa harus pura-pura jadi orang lain.</p>
+            </div>
+            <div class="p-6 border-2 border-dashed border-pink rounded-lg" data-aos="zoom-in">
+                <p class="text-3xl mb-2">🌧️</p>
+                <h3 class="serif text-xl text-pink mb-2">Sebuah Cuaca</h3>
+                <p>Hujan sore, karena rasanya tenang dan bikin pengen di rumah aja (atau sama kamu).</p>
+            </div>
+            <div class="p-6 border-2 border-dashed border-pink rounded-lg" data-aos="zoom-in" data-aos-delay="100">
+                <p class="text-3xl mb-2">🍜</p>
+                <h3 class="serif text-xl text-pink mb-2">Sebuah Makanan</h3>
+                <p>Sesuatu yang selalu bikin pengen balik lagi walau udah pernah nyobain.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10 - Mini Game -->
+    <section class="py-24 px-6 bg-brown text-cream">
+        <div class="max-w-2xl mx-auto text-center">
+            <h2 class="serif text-4xl mb-8" data-aos="fade-up">How well do you know us?</h2>
+            <div id="quizArea" class="bg-cream/10 p-8 rounded-xl" data-aos="zoom-in">
+                <p class="text-xl mb-6 serif">Siapa yang lebih dulu...</p>
+                <div class="grid grid-cols-1 gap-4">
+                    <button onclick="checkAnswer(this, false)" class="bg-cream/20 hover:bg-cream/40 transition py-3 rounded-lg">A. Chat duluan</button>
+                    <button onclick="checkAnswer(this, false)" class="bg-cream/20 hover:bg-cream/40 transition py-3 rounded-lg">B. Kangen duluan</button>
+                    <button onclick="checkAnswer(this, false)" class="bg-cream/20 hover:bg-cream/40 transition py-3 rounded-lg">C. Jatuh hati duluan</button>
+                    <button onclick="checkAnswer(this, true)" class="bg-cream/20 hover:bg-cream/40 transition py-3 rounded-lg">D. Semua jawaban benar 😭</button>
+                </div>
+                <div id="quizResult" class="hidden mt-6">
+                    <p class="serif text-2xl text-dusty-pink">CORRECT! ♡</p>
+                    <p class="mt-2">Ternyata kamu masih ingat.</p>
+                    <div class="mt-4 p-4 border border-dusty-pink/50 rounded-lg text-sm italic">
+                        💌 "Reward kamu: Satu surat kecil dari aku. Makasih udah selalu ngertiin aku, Puput."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11 - Constellation -->
+    <section class="py-24 px-6 bg-[#2c2127] text-cream relative overflow-hidden" style="min-height: 100vh;">
+        <div class="max-w-4xl mx-auto text-center relative z-10 pt-12">
+            <h2 class="serif text-4xl mb-4" data-aos="fade-up">OUR LITTLE UNIVERSE</h2>
+            <p class="text-cream/60 mb-12" data-aos="fade-up">Klik bintangnya ya...</p>
+            
+            <div class="relative h-[400px] mb-12">
+                <!-- Stars -->
+                <div class="star" style="top: 20%; left: 20%; width: 15px; height: 15px;" onclick="showReason('01 — Your heart', 'Yang paling aku suka dari hatimu adalah kemurniannya. Baik banget ke orang lain, kadang lupa diri.')"></div>
+                <div class="star" style="top: 50%; left: 80%; width: 10px; height: 10px; animation-delay: 1s;" onclick="showReason('02 — Your smile', 'Senyummu itu penenang. Kalau lagi bad mood, liat senyum kamu langsung semangat lagi.')"></div>
+                <div class="star" style="top: 70%; left: 30%; width: 20px; height: 20px; animation-delay: 2s;" onclick="showReason('03 — Your kindness', 'Cara kamu memperlakukan orang lain, itu yang bikin aku makin respect sama kamu.')"></div>
+                <div class="star" style="top: 15%; left: 60%; width: 12px; height: 12px; animation-delay: 0.5s;" onclick="showReason('04 — Your presence', 'Kehadiranmu aja udah cukup buat bikin hariku jadi 100x lebih baik.')"></div>
+                <div class="star" style="top: 80%; left: 75%; width: 18px; height: 18px; animation-delay: 1.5s;" onclick="showReason('05 — Simply... you', 'Abis itu, alasan terbesarnya karena kamu ya kamu apa adanya.')"></div>
+            </div>
+
+            <div id="reasonDisplay" class="min-h-[150px] bg-cream/10 p-6 rounded-xl backdrop-blur-sm">
+                <h3 class="serif text-2xl text-dusty-pink mb-2">Reasons why I choose you</h3>
+                <p class="italic text-cream/70">Klik bintang-bintang di atas untuk menemukan alasannya ♡</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 12 - Future Us -->
+    <section class="py-24 px-6 max-w-2xl mx-auto">
+        <h2 class="serif text-4xl text-center mb-12" data-aos="fade-up">I hope we get to...</h2>
+        <div class="space-y-4 text-lg" data-aos="fade-up" data-aos-delay="200">
+            <div class="checklist-item flex items-center gap-4" onclick="toggleCheck(this)">
+                <span class="text-2xl w-8 text-center">☐</span> Take more photos together
+            </div>
+            <div class="checklist-item flex items-center gap-4" onclick="toggleCheck(this)">
+                <span class="text-2xl w-8 text-center">☐</span> Watch the sunset together
+            </div>
+            <div class="checklist-item flex items-center gap-4" onclick="toggleCheck(this)">
+                <span class="text-2xl w-8 text-center">☐</span> Try new food together
+            </div>
+            <div class="checklist-item flex items-center gap-4" onclick="toggleCheck(this)">
+                <span class="text-2xl w-8 text-center">☐</span> Make more memories
+            </div>
+            <div class="checklist-item flex items-center gap-4" onclick="toggleCheck(this)">
+                <span class="text-2xl w-8 text-center">☐</span> Have more random conversations
+            </div>
+            <div class="checklist-item flex items-center gap-4" onclick="toggleCheck(this)">
+                <span class="text-2xl w-8 text-center">☐</span> Laugh at stupid things
+            </div>
+            <div class="checklist-item flex items-center gap-4" onclick="toggleCheck(this)">
+                <span class="text-2xl w-8 text-center">☐</span> Celebrate more months together
+            </div>
+            <div class="checklist-item flex items-center gap-4 text-pink font-bold" onclick="toggleCheck(this)">
+                <span class="text-2xl w-8 text-center">☐</span> Make it to another anniversary ♡
+            </div>
+        </div>
+    </section>
+
+    <!-- 13 - Countdown -->
+    <section class="py-32 px-6 text-center bg-pink/10">
+        <div data-aos="zoom-in">
+            <p class="handwritten text-3xl text-pink mb-4">♡ 01 MONTH ♡</p>
+            <h2 class="serif text-9xl md:text-[12rem] font-bold text-brown leading-none">30</h2>
+            <p class="serif text-2xl tracking-widest uppercase mt-4">Days of us.</p>
+            <p class="serif italic text-xl mt-8 text-brown/70">And this is only the beginning.</p>
+        </div>
+    </section>
+
+    <!-- 14 - Last Page -->
+    <section class="relative h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://z-cdn-media.chatglm.cn/files/90e6b0b1-356b-4399-8e5d-489fd09a1eac.jpg?auth_key=1886421420-9763c27efaed4cb8b5589e5d9cc2dec3-0-1684ecd4145d7229b9dc538d6889e9ff" alt="Last" class="w-full h-full object-cover opacity-40">
+            <div class="absolute inset-0 bg-cream/70"></div>
+        </div>
+        
+        <div class="relative z-10 flex flex-col items-center" id="lastPageContent">
+            <h1 class="serif text-5xl md:text-7xl mb-8 tracking-widest" data-aos="fade-down">PU PUT</h1>
+            <p class="text-xl md:text-2xl serif mb-8" data-aos="fade-up" data-aos-delay="200">
+                thank you for being my favorite part of these 30 days.
+            </p>
+            <p class="text-2xl text-pink mb-8">♡</p>
+            
+            <p class="italic mb-4" data-aos="fade-up" data-aos-delay="400">One last thing...</p>
+            <button onclick="revealFinalMessage()" class="bg-brown text-cream px-8 py-3 rounded-full text-lg hover:bg-pink transition-colors duration-300 shadow-lg" data-aos="zoom-in" data-aos-delay="600">
+                Click me ♡
+            </button>
+
+            <div id="finalMessage" class="hidden-content max-w-lg mt-8 text-center">
+                <div class="bg-white/80 backdrop-blur-sm p-8 rounded-lg shadow-xl">
+                    <p class="mb-4">Kalau kamu sampai di sini... berarti kamu sudah membaca semuanya.</p>
+                    <p class="mb-4">Jadi sekarang aku cuma mau bilang:</p>
+                    <p class="serif text-2xl text-pink mb-4">Happy 1 Month, Puput. ♡</p>
+                    <p class="italic text-sm">Semoga setelah halaman ini selesai, cerita kita belum.</p>
+                    <p class="mt-4 handwritten text-lg">— dari aku, untuk kamu.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Init AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Toggle Timeline
+        function toggleTimeline(element) {
+            const hiddenP = element.nextElementSibling;
+            hiddenP.classList.toggle('hidden');
+            const span = element.querySelector('span');
+            if(span) span.style.display = 'none';
+        }
+
+        // Toggle Letter
+        function toggleLetter() {
+            const extra = document.getElementById('extraLetter');
+            extra.classList.toggle('show');
+        }
+
+        // Mini Game
+        function checkAnswer(btn, isCorrect) {
+            if(isCorrect) {
+                btn.classList.remove('bg-cream/20');
+                btn.classList.add('bg-green-500/80');
+                document.getElementById('quizResult').classList.remove('hidden');
+            } else {
+                btn.classList.remove('bg-cream/20');
+                btn.classList.add('bg-red-500/80');
+                setTimeout(() => {
+                    btn.classList.remove('bg-red-500/80');
+                    btn.classList.add('bg-cream/20');
+                }, 1000);
+            }
+        }
+
+        // Constellation
+        function showReason(title, desc) {
+            const display = document.getElementById('reasonDisplay');
+            display.innerHTML = `
+                <h3 class="serif text-2xl text-dusty-pink mb-4">${title}</h3>
+                <p class="italic text-cream/90">${desc}</p>
+            `;
+        }
+
+        // Checklist
+        function toggleCheck(element) {
+            const box = element.querySelector('span');
+            if(box.textContent === '☐') {
+                box.textContent = '☑';
+                box.classList.add('text-pink');
+            } else {
+                box.textContent = '☐';
+                box.classList.remove('text-pink');
+            }
+        }
+
+        // Final Message & Confetti
+        function revealFinalMessage() {
+            const finalMsg = document.getElementById('finalMessage');
+            finalMsg.classList.toggle('show');
+            
+            // Heart Confetti
+            const duration = 3000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            const interval = setInterval(function() {
+                const timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) return clearInterval(interval);
+                const particleCount = 50 * (timeLeft / duration);
+                confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.9), y: Math.random() - 0.2 }, shapes: ['text'], text: '❤️', scalar: 2 });
+                confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.9), y: Math.random() - 0.2 }, shapes: ['text'], text: '♡', scalar: 2 });
+            }, 250);
+        }
+    </script>
+</body>
+</html>
