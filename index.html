@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Always With Puput ♡</title>
+    <meta name="description" content="Sebuah persembahan kecil untuk merayakan satu bulan kita bersama.">
+    <!-- Favicon Hati -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>♡</text></svg>">
+    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Playfair Display (Serif) & Quicksand (Sans) -->
@@ -52,14 +56,22 @@
             padding: 15px 15px 40px 15px;
             box-shadow: 0 4px 15px rgba(74, 57, 64, 0.15);
             transition: transform 0.4s ease;
+            animation: float 6s ease-in-out infinite;
         }
         .polaroid:hover {
-            transform: scale(1.05) rotate(0deg) !important;
+            transform: scale(1.08) rotate(0deg) !important;
             z-index: 10;
+            box-shadow: 0 8px 25px rgba(74, 57, 64, 0.25);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(var(--rot, 0deg)); }
+            50% { transform: translateY(-10px) rotate(var(--rot, 0deg)); }
+            100% { transform: translateY(0px) rotate(var(--rot, 0deg)); }
         }
 
         /* Flip Card */
-        .flip-card { perspective: 1000px; height: 200px; width: 100%; }
+        .flip-card { perspective: 1000px; height: 240px; width: 100%; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; cursor: pointer; }
         .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
         .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
@@ -67,13 +79,28 @@
         .flip-card-back { background-color: #fff; color: var(--dark-brown); transform: rotateY(180deg); border: 1px solid var(--dusty-pink); }
 
         /* Constellation Star */
-        .star { position: absolute; background: #fff; border-radius: 50%; cursor: pointer; transition: transform 0.3s; animation: twinkle 3s infinite ease-in-out; }
-        .star:hover { transform: scale(1.5); box-shadow: 0 0 10px #fff; }
-        @keyframes twinkle { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+        .star { position: absolute; background: #fff; border-radius: 50%; cursor: pointer; transition: transform 0.3s; animation: twinkle 3s infinite ease-in-out; box-shadow: 0 0 10px rgba(255,255,255,0.8); }
+        .star:hover { transform: scale(1.5); box-shadow: 0 0 20px #fff; }
+        @keyframes twinkle { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
+
+        /* Shooting Star */
+        .shooting-star {
+            position: absolute; width: 4px; height: 4px; background: #fff; border-radius: 50%;
+            box-shadow: 0 0 10px 2px #fff; animation: shoot 5s linear infinite;
+        }
+        .shooting-star::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100px; height: 1px;
+            background: linear-gradient(90deg, #fff, transparent); transform: translateX(-100px);
+        }
+        @keyframes shoot {
+            0% { transform: translate(0, 0) rotate(45deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translate(400px, 400px) rotate(45deg); opacity: 0; }
+        }
 
         /* Checklist */
-        .checklist-item { cursor: pointer; transition: all 0.3s; }
-        .checklist-item:hover { color: var(--dusty-pink); }
+        .checklist-item { cursor: pointer; transition: all 0.3s; padding: 0.5rem; border-radius: 8px; }
+        .checklist-item:hover { background-color: var(--cream); transform: translateX(10px); }
         
         /* Paper Texture for Letter */
         .paper {
@@ -82,11 +109,46 @@
             box-shadow: 0 1px 5px rgba(0,0,0,0.1);
         }
         
-        .hidden-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; }
-        .hidden-content.show { max-height: 500px; }
+        /* Smooth Hide/Show */
+        .hidden-content { max-height: 0; overflow: hidden; transition: max-height 0.8s ease-out, opacity 0.5s ease-out; opacity: 0; }
+        .hidden-content.show { max-height: 1000px; opacity: 1; }
+
+        /* Typewriter Cursor */
+        .cursor::after {
+            content: '|';
+            display: inline-block;
+            animation: blink 1s infinite;
+            color: var(--dusty-pink);
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* Floating Buttons */
+        .float-btn {
+            position: fixed; bottom: 20px; right: 20px; z-index: 50;
+            width: 50px; height: 50px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2); cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .float-btn:hover { transform: scale(1.1); }
     </style>
 </head>
-<body>
+<body class="scroll-smooth">
+
+    <!-- Floating Music Button -->
+    <div id="musicBtn" class="float-btn bg-brown text-cream" onclick="toggleMusic()" title="Play music">
+        ♫
+    </div>
+    <!-- Floating Back to Top Button -->
+    <div id="topBtn" class="float-btn bg-pink text-white hidden" style="bottom: 80px;" onclick="topFunction()" title="Back to top">
+        ↑
+    </div>
+
+    <!-- Background Audio -->
+    <audio id="bgMusic" loop>
+        <!-- Ganti src ini dengan link lagu yang kamu mau (format mp3) -->
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
 
     <!-- 01 - Opening / Landing Page -->
     <section class="relative h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
@@ -95,19 +157,21 @@
             <div class="absolute inset-0 bg-cream/60"></div>
         </div>
         <div class="relative z-10 flex flex-col items-center">
-            <h2 class="handwritten text-3xl text-pink mb-4" data-aos="fade-down">♡ OUR FIRST MONTH ♡</h2>
-            <div class="flex gap-4 text-brown font-light text-lg md:text-xl mb-8" data-aos="fade-up" data-aos-delay="200">
+            <h2 class="handwritten text-3xl md:text-4xl text-pink mb-4" data-aos="fade-down">♡ OUR FIRST MONTH ♡</h2>
+            <div class="flex flex-col md:flex-row gap-2 md:gap-6 text-brown font-light text-lg md:text-xl mb-8" data-aos="fade-up" data-aos-delay="200">
                 <span>30 hari.</span>
+                <span class="hidden md:inline">•</span>
                 <span>720 jam.</span>
+                <span class="hidden md:inline">•</span>
                 <span>43.200 menit.</span>
             </div>
             <h1 class="serif text-3xl md:text-5xl max-w-2xl leading-relaxed mb-10" data-aos="fade-up" data-aos-delay="400">
-                Dan semuanya terasa lebih indah karena ada kamu.
+                Dan semuanya terasa lebih indah karena ada <span id="typewriter" class="text-pink"></span>
             </h1>
             <p class="serif italic text-brown/80 max-w-md mb-8" data-aos="fade-up" data-aos-delay="600">
                 "Untuk Puput, terima kasih sudah menjadi bagian paling manis dari satu bulan terakhirku."
             </p>
-            <button onclick="document.getElementById('section-2').scrollIntoView({behavior: 'smooth'})" class="bg-brown text-cream px-8 py-3 rounded-full text-lg hover:bg-pink transition-colors duration-300 shadow-lg" data-aos="zoom-in" data-aos-delay="800">
+            <button onclick="document.getElementById('section-2').scrollIntoView({behavior: 'smooth'})" class="bg-brown text-cream px-8 py-3 rounded-full text-lg hover:bg-pink transition-colors duration-300 shadow-lg flex items-center gap-2" data-aos="zoom-in" data-aos-delay="800">
                 ✦ Mulai perjalanan kita
             </button>
         </div>
@@ -118,25 +182,25 @@
         <h2 class="handwritten text-4xl text-pink mb-8" data-aos="fade-up">A little story about us ♡</h2>
         <div class="space-y-4 text-lg leading-relaxed text-brown/90" data-aos="fade-up" data-aos-delay="200">
             <p>Aku nggak tahu kapan tepatnya semuanya mulai terasa berbeda.</p>
-            <p class="serif italic">Tapi aku tahu satu hal...</p>
+            <p class="serif italic text-xl">Tapi aku tahu satu hal...</p>
             <p>30 hari terakhir, aku punya seseorang yang selalu berhasil membuat hariku terasa sedikit lebih baik.</p>
             <p>Dan orang itu adalah kamu.</p>
         </div>
 
         <div class="flex flex-col md:flex-row items-center justify-center gap-8 mt-16" data-aos="zoom-in" data-aos-delay="400">
-            <div class="polaroid -rotate-3" style="width: 200px;">
+            <div class="polaroid" style="width: 200px; --rot: -3deg;">
                 <img src="https://z-cdn-media.chatglm.cn/files/d0654c1a-dcb6-4251-b818-b64bb1594db9.jpeg?auth_key=1886421420-55de908301014404a03cc7a890cbdb72-0-08d87c6af0008e691e586062cfa3cd80" class="w-full h-48 object-cover" alt="Kamu">
-                <p class="text-center mt-2 text-sm text-brown/70">Kamu</p>
+                <p class="text-center mt-2 text-sm text-brown/70 handwritten text-lg">Kamu</p>
             </div>
-            <div class="text-4xl text-pink">♡</div>
+            <div class="text-4xl text-pink animate-pulse">♡</div>
             <div class="text-center">
                 <p class="serif text-2xl">1 MONTH</p>
-                <p class="text-pink">♡</p>
+                <p class="text-pink text-xl mt-2">♡</p>
             </div>
-            <div class="text-4xl text-pink">♡</div>
-            <div class="polaroid rotate-3" style="width: 200px;">
+            <div class="text-4xl text-pink animate-pulse">♡</div>
+            <div class="polaroid" style="width: 200px; --rot: 3deg; animation-delay: 1s;">
                 <img src="https://z-cdn-media.chatglm.cn/files/4aa20793-cf85-43a3-91f9-1ef0eb8f46ac.jpeg?auth_key=1886421420-76c4bfa6b1b74464ac024f32be6b806b-0-b8cae5e857d99c404710cfd39c708d53" class="w-full h-48 object-cover" alt="Puput">
-                <p class="text-center mt-2 text-sm text-brown/70">Puput</p>
+                <p class="text-center mt-2 text-sm text-brown/70 handwritten text-lg">Puput</p>
             </div>
         </div>
     </section>
@@ -150,36 +214,56 @@
                 <div class="relative" data-aos="fade-right">
                     <div class="absolute -left-[37px] w-4 h-4 rounded-full bg-pink border-4 border-cream"></div>
                     <h3 class="serif text-2xl text-pink">DAY 01</h3>
-                    <p class="mt-2 cursor-pointer hover:text-pink transition" onclick="toggleTimeline(this)">It all started... <span class="text-sm">(klik untuk lihat)</span></p>
-                    <p class="hidden mt-2 italic text-brown/70">"Awal mula semuanya dimulai. Sebuah langkah kecil yang ternyata membawa banyak perubahan."</p>
+                    <div class="mt-2 cursor-pointer text-brown hover:text-pink transition flex items-center gap-2" onclick="toggleTimeline(this)">
+                        <span>It all started...</span> <span class="text-xs bg-pink/20 px-2 py-1 rounded-full">Klik untuk lihat</span>
+                    </div>
+                    <div class="hidden-content mt-2 italic text-brown/70 max-w-md">
+                        "Awal mula semuanya dimulai. Sebuah langkah kecil yang ternyata membawa banyak perubahan."
+                    </div>
                 </div>
 
-                <div class="relative" data-aos="fade-right">
+                <div class="relative" data-aos="fade-right" data-aos-delay="100">
                     <div class="absolute -left-[37px] w-4 h-4 rounded-full bg-pink border-4 border-cream"></div>
                     <h3 class="serif text-2xl text-pink">DAY 07</h3>
-                    <p class="mt-2 cursor-pointer hover:text-pink transition" onclick="toggleTimeline(this)">Mulai terbiasa dengan kehadiranmu <span class="text-sm">(klik untuk lihat)</span></p>
-                    <p class="hidden mt-2 italic text-brown/70">"Hari ketika aku mulai sadar kalau ngobrol sama kamu ternyata bisa bikin lupa waktu."</p>
+                    <div class="mt-2 cursor-pointer text-brown hover:text-pink transition flex items-center gap-2" onclick="toggleTimeline(this)">
+                        <span>Mulai terbiasa dengan kehadiranmu</span> <span class="text-xs bg-pink/20 px-2 py-1 rounded-full">Klik untuk lihat</span>
+                    </div>
+                    <div class="hidden-content mt-2 italic text-brown/70 max-w-md">
+                        "Hari ketika aku mulai sadar kalau ngobrol sama kamu ternyata bisa bikin lupa waktu."
+                    </div>
                 </div>
 
-                <div class="relative" data-aos="fade-right">
+                <div class="relative" data-aos="fade-right" data-aos-delay="200">
                     <div class="absolute -left-[37px] w-4 h-4 rounded-full bg-pink border-4 border-cream"></div>
                     <h3 class="serif text-2xl text-pink">DAY 14</h3>
-                    <p class="mt-2 cursor-pointer hover:text-pink transition" onclick="toggleTimeline(this)">Ternyata sudah dua minggu 🥹 <span class="text-sm">(klik untuk lihat)</span></p>
-                    <p class="hidden mt-2 italic text-brown/70">"Separuh perjalanan bulan pertama kita. Dan aku masih mau lanjut."</p>
+                    <div class="mt-2 cursor-pointer text-brown hover:text-pink transition flex items-center gap-2" onclick="toggleTimeline(this)">
+                        <span>Ternyata sudah dua minggu 🥹</span> <span class="text-xs bg-pink/20 px-2 py-1 rounded-full">Klik untuk lihat</span>
+                    </div>
+                    <div class="hidden-content mt-2 italic text-brown/70 max-w-md">
+                        "Separuh perjalanan bulan pertama kita. Dan aku masih mau lanjut."
+                    </div>
                 </div>
 
-                <div class="relative" data-aos="fade-right">
+                <div class="relative" data-aos="fade-right" data-aos-delay="300">
                     <div class="absolute -left-[37px] w-4 h-4 rounded-full bg-pink border-4 border-cream"></div>
                     <h3 class="serif text-2xl text-pink">DAY 21</h3>
-                    <p class="mt-2 cursor-pointer hover:text-pink transition" onclick="toggleTimeline(this)">Makin banyak cerita <span class="text-sm">(klik untuk lihat)</span></p>
-                    <p class="hidden mt-2 italic text-brown/70">"Makin lama, makin banyak hal kecil yang kita bagi. Dan itu bikin nyaman."</p>
+                    <div class="mt-2 cursor-pointer text-brown hover:text-pink transition flex items-center gap-2" onclick="toggleTimeline(this)">
+                        <span>Makin banyak cerita</span> <span class="text-xs bg-pink/20 px-2 py-1 rounded-full">Klik untuk lihat</span>
+                    </div>
+                    <div class="hidden-content mt-2 italic text-brown/70 max-w-md">
+                        "Makin lama, makin banyak hal kecil yang kita bagi. Dan itu bikin nyaman."
+                    </div>
                 </div>
 
-                <div class="relative" data-aos="fade-right">
-                    <div class="absolute -left-[37px] w-4 h-4 rounded-full bg-pink border-4 border-cream"></div>
+                <div class="relative" data-aos="fade-right" data-aos-delay="400">
+                    <div class="absolute -left-[37px] w-4 h-4 rounded-full bg-pink border-4 border-cream animate-pulse"></div>
                     <h3 class="serif text-2xl text-pink">DAY 30</h3>
-                    <p class="mt-2 cursor-pointer hover:text-pink transition" onclick="toggleTimeline(this)">WE MADE IT ♡ <span class="text-sm">(klik untuk lihat)</span></p>
-                    <p class="hidden mt-2 italic text-brown/70">"Satu bulan penuh. Terima kasih sudah mau sampai sini bersamaku."</p>
+                    <div class="mt-2 cursor-pointer text-brown hover:text-pink transition flex items-center gap-2" onclick="toggleTimeline(this)">
+                        <span>WE MADE IT ♡</span> <span class="text-xs bg-pink/20 px-2 py-1 rounded-full">Klik untuk lihat</span>
+                    </div>
+                    <div class="hidden-content mt-2 italic text-brown/70 max-w-md">
+                        "Satu bulan penuh. Terima kasih sudah mau sampai sini bersamaku."
+                    </div>
                 </div>
 
             </div>
@@ -189,29 +273,30 @@
     <!-- 04 - Gallery Scrapbook -->
     <section class="py-24 px-6 overflow-hidden">
         <div class="max-w-5xl mx-auto">
-            <h2 class="serif text-4xl text-center mb-16" data-aos="fade-up">OUR LITTLE MEMORIES</h2>
+            <h2 class="serif text-4xl text-center mb-4" data-aos="fade-up">OUR LITTLE MEMORIES</h2>
+            <p class="text-center text-brown/60 mb-16 handwritten text-2xl" data-aos="fade-up" data-aos-delay="100">Beberapa potret kecil yang berarti</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-12">
-                <div class="polaroid -rotate-3" data-aos="fade-up">
+                <div class="polaroid" style="--rot: -3deg;" data-aos="fade-up">
                     <img src="https://z-cdn-media.chatglm.cn/files/dc0b6628-ab6f-432b-ae98-c3da3e3e1d94.jpeg?auth_key=1886421420-b0db70547d0f4a36a2e618feb64db97e-0-341483420100cfd3c4aa5c99dba84569" class="w-full h-64 object-cover" alt="Memory 1">
                     <p class="handwritten text-center mt-3 text-lg text-pink">one of my favorite days</p>
                 </div>
-                <div class="polaroid rotate-2 mt-12" data-aos="fade-up" data-aos-delay="100">
+                <div class="polaroid mt-12" style="--rot: 2deg; animation-delay: 1.5s;" data-aos="fade-up" data-aos-delay="100">
                     <img src="https://z-cdn-media.chatglm.cn/files/20b7e42b-22cc-47a0-bc04-63b57d02e850.jpg?auth_key=1886421420-81f1b6f3384e495bbf98f0501361d9aa-0-fb4e8c45eb77cdeb8a5eef72a2cef594" class="w-full h-64 object-cover" alt="Memory 2">
                     <p class="handwritten text-center mt-3 text-lg text-pink">you and your little world</p>
                 </div>
-                <div class="polaroid -rotate-1" data-aos="fade-up" data-aos-delay="200">
+                <div class="polaroid" style="--rot: -1deg; animation-delay: 2.5s;" data-aos="fade-up" data-aos-delay="200">
                     <img src="https://z-cdn-media.chatglm.cn/files/72c89f26-a7d1-4f8d-9da3-286c9473f392.jpeg?auth_key=1886421420-90e5a9fe89a74f3a818ce23cf8e97d8f-0-697b49eac2aa5ba6543811f54244463c" class="w-full h-64 object-cover" alt="Memory 3">
                     <p class="handwritten text-center mt-3 text-lg text-pink">random cute days</p>
                 </div>
-                <div class="polaroid rotate-3 mt-8" data-aos="fade-up">
+                <div class="polaroid mt-8" style="--rot: 3deg; animation-delay: 0.5s;" data-aos="fade-up">
                     <img src="https://z-cdn-media.chatglm.cn/files/08a95766-d639-4860-a2c3-606e78f91a66.jpeg?auth_key=1886421420-40bc6012cc5b489ab01f1fad94a028db-0-ca4b785d4a85a7c2461e302eba86ee8f" class="w-full h-64 object-cover" alt="Memory 4">
                     <p class="handwritten text-center mt-3 text-lg text-pink">softest hugs ♡</p>
                 </div>
-                <div class="polaroid -rotate-2" data-aos="fade-up" data-aos-delay="100">
+                <div class="polaroid" style="--rot: -2deg; animation-delay: 3s;" data-aos="fade-up" data-aos-delay="100">
                     <img src="https://z-cdn-media.chatglm.cn/files/dcb10c7c-a9d1-425d-8648-e6ecfcd1bf40.jpeg?auth_key=1886421420-199068277e824a19a02fc20915811b21-0-07ef20772e4b4c0169e54a5e08580ef6" class="w-full h-64 object-cover" alt="Memory 5">
                     <p class="handwritten text-center mt-3 text-lg text-pink">that smile tho</p>
                 </div>
-                <div class="polaroid rotate-1 mt-12" data-aos="fade-up" data-aos-delay="200">
+                <div class="polaroid mt-12" style="--rot: 1deg; animation-delay: 2s;" data-aos="fade-up" data-aos-delay="200">
                     <img src="https://z-cdn-media.chatglm.cn/files/67e77e57-d2ba-4924-acb6-8c8f345bb625.jpeg?auth_key=1886421420-cee435c6bf874366993a824a934f8f3d-0-b494757906b0069cce10adb7cc543a1b" class="w-full h-64 object-cover" alt="Memory 6">
                     <p class="handwritten text-center mt-3 text-lg text-pink">my pretty girl</p>
                 </div>
@@ -219,60 +304,81 @@
         </div>
     </section>
 
-    <!-- 05 - Things I Love About You -->
+    <!-- 05 - Things I Love About You (Fixed to 10 items) -->
     <section class="py-24 px-6 bg-pink/10">
         <div class="max-w-4xl mx-auto">
             <h2 class="serif text-4xl text-center mb-4" data-aos="fade-up">10 things I love about you ♡</h2>
-            <p class="text-center mb-12 text-brown/70" data-aos="fade-up">(Klik kartunya untuk membuka ya)</p>
+            <p class="text-center mb-12 text-brown/70" data-aos="fade-up" data-aos-delay="100">(Klik kartunya untuk membuka ya)</p>
             
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <!-- Cards generated via JS for cleanliness, but here are manual for template -->
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
+                <!-- Card 1 -->
                 <div class="flip-card" data-aos="flip-left" onclick="this.classList.toggle('flipped')">
                     <div class="flip-card-inner">
                         <div class="flip-card-front"><span class="text-4xl">♡ 01</span><span class="mt-2 font-bold">OPEN ME</span></div>
-                        <div class="flip-card-back"><p class="serif text-lg">Your smile</p></div>
+                        <div class="flip-card-back"><p class="serif text-base md:text-lg">Your smile</p></div>
                     </div>
                 </div>
+                <!-- Card 2 -->
                 <div class="flip-card" data-aos="flip-left" data-aos-delay="50" onclick="this.classList.toggle('flipped')">
                     <div class="flip-card-inner">
                         <div class="flip-card-front"><span class="text-4xl">♡ 02</span><span class="mt-2 font-bold">OPEN ME</span></div>
-                        <div class="flip-card-back"><p class="serif text-lg">The way you talk</p></div>
+                        <div class="flip-card-back"><p class="serif text-base md:text-lg">The way you talk</p></div>
                     </div>
                 </div>
+                <!-- Card 3 -->
                 <div class="flip-card" data-aos="flip-left" data-aos-delay="100" onclick="this.classList.toggle('flipped')">
                     <div class="flip-card-inner">
                         <div class="flip-card-front"><span class="text-4xl">♡ 03</span><span class="mt-2 font-bold">OPEN ME</span></div>
-                        <div class="flip-card-back"><p class="serif text-lg">Your little expressions</p></div>
+                        <div class="flip-card-back"><p class="serif text-sm md:text-base">Your little expressions</p></div>
                     </div>
                 </div>
+                <!-- Card 4 -->
                 <div class="flip-card" data-aos="flip-left" data-aos-delay="150" onclick="this.classList.toggle('flipped')">
                     <div class="flip-card-inner">
                         <div class="flip-card-front"><span class="text-4xl">♡ 04</span><span class="mt-2 font-bold">OPEN ME</span></div>
-                        <div class="flip-card-back"><p class="serif text-sm">How you make ordinary days feel special</p></div>
+                        <div class="flip-card-back"><p class="serif text-sm md:text-base">How you make ordinary days feel special</p></div>
                     </div>
                 </div>
+                <!-- Card 5 -->
                 <div class="flip-card" data-aos="flip-left" onclick="this.classList.toggle('flipped')">
                     <div class="flip-card-inner">
                         <div class="flip-card-front"><span class="text-4xl">♡ 05</span><span class="mt-2 font-bold">OPEN ME</span></div>
-                        <div class="flip-card-back"><p class="serif text-sm">The way you are simply you</p></div>
+                        <div class="flip-card-back"><p class="serif text-sm md:text-base">The way you are simply you</p></div>
                     </div>
                 </div>
-                 <div class="flip-card" data-aos="flip-left" data-aos-delay="50" onclick="this.classList.toggle('flipped')">
+                <!-- Card 6 -->
+                <div class="flip-card" data-aos="flip-left" data-aos-delay="50" onclick="this.classList.toggle('flipped')">
                     <div class="flip-card-inner">
                         <div class="flip-card-front"><span class="text-4xl">♡ 06</span><span class="mt-2 font-bold">OPEN ME</span></div>
-                        <div class="flip-card-back"><p class="serif text-sm">Cara kamu marah yang tetap lucu</p></div>
+                        <div class="flip-card-back"><p class="serif text-sm md:text-base">Cara kamu marah yang tetap lucu</p></div>
                     </div>
                 </div>
-                 <div class="flip-card" data-aos="flip-left" data-aos-delay="100" onclick="this.classList.toggle('flipped')">
+                <!-- Card 7 -->
+                <div class="flip-card" data-aos="flip-left" data-aos-delay="100" onclick="this.classList.toggle('flipped')">
                     <div class="flip-card-inner">
                         <div class="flip-card-front"><span class="text-4xl">♡ 07</span><span class="mt-2 font-bold">OPEN ME</span></div>
-                        <div class="flip-card-back"><p class="serif text-sm">Perhatian kecilmu yang ga nyangka aku sadar</p></div>
+                        <div class="flip-card-back"><p class="serif text-sm md:text-base">Perhatian kecilmu yang ga nyangka aku sadar</p></div>
                     </div>
                 </div>
-                 <div class="flip-card" data-aos="flip-left" data-aos-delay="150" onclick="this.classList.toggle('flipped')">
+                <!-- Card 8 -->
+                <div class="flip-card" data-aos="flip-left" data-aos-delay="150" onclick="this.classList.toggle('flipped')">
                     <div class="flip-card-inner">
                         <div class="flip-card-front"><span class="text-4xl">♡ 08</span><span class="mt-2 font-bold">OPEN ME</span></div>
-                        <div class="flip-card-back"><p class="serif text-sm">Suara kamu yang bikin tenang</p></div>
+                        <div class="flip-card-back"><p class="serif text-sm md:text-base">Suara kamu yang bikin tenang</p></div>
+                    </div>
+                </div>
+                <!-- Card 9 (Added) -->
+                <div class="flip-card" data-aos="flip-left" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front"><span class="text-4xl">♡ 09</span><span class="mt-2 font-bold">OPEN ME</span></div>
+                        <div class="flip-card-back"><p class="serif text-sm md:text-base">Cara kamu bikin aku ngerasa dihargai</p></div>
+                    </div>
+                </div>
+                <!-- Card 10 (Added) -->
+                <div class="flip-card" data-aos="flip-left" data-aos-delay="50" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front"><span class="text-4xl">♡ 10</span><span class="mt-2 font-bold">OPEN ME</span></div>
+                        <div class="flip-card-back"><p class="serif text-sm md:text-base">Becandaan receh kita yang nggak akan pernah ada habisnya</p></div>
                     </div>
                 </div>
             </div>
@@ -282,11 +388,11 @@
     <!-- 06 - Things You Don't Know -->
     <section class="py-24 px-6 text-center max-w-2xl mx-auto">
         <h2 class="handwritten text-4xl text-pink mb-8" data-aos="fade-up">psst... Puput, you probably don't know this yet.</h2>
-        <div class="space-y-6 text-lg leading-relaxed" data-aos="fade-up" data-aos-delay="200">
-            <p class="polaroid inline-block -rotate-1 max-w-md">“Kadang aku senyum sendiri kalau lihat notif dari kamu.”</p><br>
-            <p class="polaroid inline-block rotate-2 max-w-md mt-4">“Ada beberapa chat kamu yang pernah aku baca ulang.”</p><br>
-            <p class="polaroid inline-block -rotate-2 max-w-md mt-4">“Aku mungkin nggak selalu bilang, tapi aku senang banget punya kamu.”</p><br>
-            <p class="serif italic text-xl mt-8 text-brown/80">"Dan ternyata satu bulan bisa terasa cepat banget kalau dijalani sama orang yang tepat."</p>
+        <div class="space-y-6 text-lg leading-relaxed flex flex-col items-center" data-aos="fade-up" data-aos-delay="200">
+            <p class="polaroid inline-block max-w-md text-sm md:text-base" style="--rot: -1deg;">“Kadang aku senyum sendiri kalau lihat notif dari kamu.”</p>
+            <p class="polaroid inline-block max-w-md text-sm md:text-base mt-4" style="--rot: 2deg; animation-delay: 1s;">“Ada beberapa chat kamu yang pernah aku baca ulang.”</p>
+            <p class="polaroid inline-block max-w-md text-sm md:text-base mt-4" style="--rot: -2deg; animation-delay: 2s;">“Aku mungkin nggak selalu bilang, tapi aku senang banget punya kamu.”</p>
+            <p class="serif italic text-xl mt-8 text-brown/80 max-w-lg">"Dan ternyata satu bulan bisa terasa cepat banget kalau dijalani sama orang yang tepat."</p>
         </div>
     </section>
 
@@ -304,7 +410,9 @@
                 <p class="text-right serif">Happy first month, Puput. ♡<br><span class="text-sm italic">From someone who loves you.</span></p>
             </div>
             <div class="text-center mt-8">
-                <button onclick="toggleLetter()" class="text-pink underline hover:text-brown transition">[ Continue reading... ]</button>
+                <button onclick="toggleLetter()" class="text-pink underline hover:text-brown transition flex items-center gap-2 mx-auto">
+                    <span id="letterBtnText">[ Continue reading... ]</span>
+                </button>
                 <div id="extraLetter" class="hidden-content text-left mt-4 text-brown/80 italic text-sm">
                     <p>"Sebenarnya masih banyak yang mau aku tulis, tapi takut kepanjangan nanti kamu bosan bacanya hahaha. Intinya, makasih udah jadi tempat ternyaman aku sebulan terakhir. Semoga bulan-bulan selanjutnya kita bisa makin deket ya."</p>
                 </div>
@@ -312,29 +420,29 @@
         </div>
     </section>
 
-    <!-- 08 - Playlist -->
+    <!-- 08 - Playlist (Functional Links) -->
     <section class="py-24 px-6 bg-lavender/20">
         <div class="max-w-2xl mx-auto text-center">
             <h2 class="serif text-4xl mb-12" data-aos="fade-up">♫ OUR SONGS</h2>
             <div class="space-y-6 text-left" data-aos="fade-up" data-aos-delay="200">
-                <div class="bg-white p-4 rounded-lg shadow-sm flex items-center justify-between hover:translate-x-2 transition">
-                    <div><p class="font-bold serif text-lg">01. LOVYOUUU</p><p class="text-sm text-brown/60">— because this reminds me of you</p></div>
-                    <span class="text-2xl">▶️</span>
-                </div>
-                <div class="bg-white p-4 rounded-lg shadow-sm flex items-center justify-between hover:translate-x-2 transition">
-                    <div><p class="font-bold serif text-lg">02. MISS YOUUUU</p><p class="text-sm text-brown/60">— this one feels like us</p></div>
-                    <span class="text-2xl">▶️</span>
-                </div>
-                <div class="bg-white p-4 rounded-lg shadow-sm flex items-center justify-between hover:translate-x-2 transition">
-                    <div><p class="font-bold serif text-lg">03. LOVEEE KLEPUTTT KUUUU<></p><p class="text-sm text-brown/60">— for late night conversations</p></div>
-                    <span class="text-2xl">▶️</span>
-                </div>
-                <div class="bg-white p-4 rounded-lg shadow-sm flex items-center justify-between hover:translate-x-2 transition">
-                    <div><p class="font-bold serif text-lg">04. MAKIN CINTAA AKUUU BEBBB</p><p class="text-sm text-brown/60">— our little soundtrack</p></div>
-                    <span class="text-2xl">▶️</span>
-                </div>
+                <a href="https://www.youtube.com/watch?v=wiL0wT8-lOo" target="_blank" class="bg-white p-4 rounded-lg shadow-sm flex items-center justify-between hover:translate-x-2 transition group">
+                    <div><p class="font-bold serif text-lg">Treasuri</p><p class="text-sm text-brown/60">— because this reminds me of you</p></div>
+                    <span class="text-2xl group-hover:text-pink transition">▶️</span>
+                </a>
+                <a href="https://www.youtube.com/watch?v=ihZ2r5V3h1U" target="_blank" class="bg-white p-4 rounded-lg shadow-sm flex items-center justify-between hover:translate-x-2 transition group">
+                    <div><p class="font-bold serif text-lg">Runtuh</p><p class="text-sm text-brown/60">— this one feels like us</p></div>
+                    <span class="text-2xl group-hover:text-pink transition">▶️</span>
+                </a>
+                <a href="https://www.youtube.com/watch?v=ZbZSe0Nj5-c" target="_blank" class="bg-white p-4 rounded-lg shadow-sm flex items-center justify-between hover:translate-x-2 transition group">
+                    <div><p class="font-bold serif text-lg">Sempurna</p><p class="text-sm text-brown/60">— for late night conversations</p></div>
+                    <span class="text-2xl group-hover:text-pink transition">▶️</span>
+                </a>
+                <a href="https://www.youtube.com/watch?v=8UVNT4wvIGY" target="_blank" class="bg-white p-4 rounded-lg shadow-sm flex items-center justify-between hover:translate-x-2 transition group">
+                    <div><p class="font-bold serif text-lg">Somebody's Pleasure</p><p class="text-sm text-brown/60">— our little soundtrack</p></div>
+                    <span class="text-2xl group-hover:text-pink transition">▶️</span>
+                </a>
             </div>
-            <p class="mt-8 text-sm text-brown/50 italic">CANTEKK</p>
+            <p class="mt-8 text-sm text-brown/50 italic">*Klik lagunya buat dengerin ya</p>
         </div>
     </section>
 
@@ -342,22 +450,22 @@
     <section class="py-24 px-6 max-w-3xl mx-auto">
         <h2 class="serif text-4xl text-center mb-12" data-aos="fade-up">Kalau hubungan kita adalah...</h2>
         <div class="grid md:grid-cols-2 gap-8 text-center">
-            <div class="p-6 border-2 border-dashed border-pink rounded-lg" data-aos="zoom-in">
+            <div class="p-6 border-2 border-dashed border-pink rounded-lg hover:bg-pink/5 transition" data-aos="zoom-in">
                 <p class="text-3xl mb-2">🌷</p>
                 <h3 class="serif text-xl text-pink mb-2">Sebuah Warna</h3>
                 <p>Dusty Pink, karena lembut tapi tetap bikin deg-degan.</p>
             </div>
-            <div class="p-6 border-2 border-dashed border-pink rounded-lg" data-aos="zoom-in" data-aos-delay="100">
+            <div class="p-6 border-2 border-dashed border-pink rounded-lg hover:bg-pink/5 transition" data-aos="zoom-in" data-aos-delay="100">
                 <p class="text-3xl mb-2">🌙</p>
                 <h3 class="serif text-xl text-pink mb-2">Sebuah Tempat</h3>
                 <p>Tempat yang bikin aku nyaman tanpa harus pura-pura jadi orang lain.</p>
             </div>
-            <div class="p-6 border-2 border-dashed border-pink rounded-lg" data-aos="zoom-in">
+            <div class="p-6 border-2 border-dashed border-pink rounded-lg hover:bg-pink/5 transition" data-aos="zoom-in">
                 <p class="text-3xl mb-2">🌧️</p>
                 <h3 class="serif text-xl text-pink mb-2">Sebuah Cuaca</h3>
                 <p>Hujan sore, karena rasanya tenang dan bikin pengen di rumah aja (atau sama kamu).</p>
             </div>
-            <div class="p-6 border-2 border-dashed border-pink rounded-lg" data-aos="zoom-in" data-aos-delay="100">
+            <div class="p-6 border-2 border-dashed border-pink rounded-lg hover:bg-pink/5 transition" data-aos="zoom-in" data-aos-delay="100">
                 <p class="text-3xl mb-2">🍜</p>
                 <h3 class="serif text-xl text-pink mb-2">Sebuah Makanan</h3>
                 <p>Sesuatu yang selalu bikin pengen balik lagi walau udah pernah nyobain.</p>
@@ -390,9 +498,14 @@
 
     <!-- 11 - Constellation -->
     <section class="py-24 px-6 bg-[#2c2127] text-cream relative overflow-hidden" style="min-height: 100vh;">
+        <!-- Shooting Stars Background -->
+        <div class="shooting-star" style="top: 10%; left: 10%; animation-delay: 0s;"></div>
+        <div class="shooting-star" style="top: 30%; left: 50%; animation-delay: 2s;"></div>
+        <div class="shooting-star" style="top: 60%; left: 20%; animation-delay: 4s;"></div>
+
         <div class="max-w-4xl mx-auto text-center relative z-10 pt-12">
             <h2 class="serif text-4xl mb-4" data-aos="fade-up">OUR LITTLE UNIVERSE</h2>
-            <p class="text-cream/60 mb-12" data-aos="fade-up">Klik bintangnya ya...</p>
+            <p class="text-cream/60 mb-12" data-aos="fade-up" data-aos-delay="100">Klik bintangnya ya...</p>
             
             <div class="relative h-[400px] mb-12">
                 <!-- Stars -->
@@ -403,7 +516,7 @@
                 <div class="star" style="top: 80%; left: 75%; width: 18px; height: 18px; animation-delay: 1.5s;" onclick="showReason('05 — Simply... you', 'Abis itu, alasan terbesarnya karena kamu ya kamu apa adanya.')"></div>
             </div>
 
-            <div id="reasonDisplay" class="min-h-[150px] bg-cream/10 p-6 rounded-xl backdrop-blur-sm">
+            <div id="reasonDisplay" class="min-h-[150px] bg-cream/10 p-6 rounded-xl backdrop-blur-sm border border-cream/20 transition-all duration-500">
                 <h3 class="serif text-2xl text-dusty-pink mb-2">Reasons why I choose you</h3>
                 <p class="italic text-cream/70">Klik bintang-bintang di atas untuk menemukan alasannya ♡</p>
             </div>
@@ -435,7 +548,7 @@
             <div class="checklist-item flex items-center gap-4" onclick="toggleCheck(this)">
                 <span class="text-2xl w-8 text-center">☐</span> Celebrate more months together
             </div>
-            <div class="checklist-item flex items-center gap-4 text-pink font-bold" onclick="toggleCheck(this)">
+            <div class="checklist-item flex items-center gap-4 font-bold text-pink" onclick="toggleCheck(this)">
                 <span class="text-2xl w-8 text-center">☐</span> Make it to another anniversary ♡
             </div>
         </div>
@@ -463,20 +576,20 @@
             <p class="text-xl md:text-2xl serif mb-8" data-aos="fade-up" data-aos-delay="200">
                 thank you for being my favorite part of these 30 days.
             </p>
-            <p class="text-2xl text-pink mb-8">♡</p>
+            <p class="text-2xl text-pink mb-8 animate-bounce">♡</p>
             
             <p class="italic mb-4" data-aos="fade-up" data-aos-delay="400">One last thing...</p>
             <button onclick="revealFinalMessage()" class="bg-brown text-cream px-8 py-3 rounded-full text-lg hover:bg-pink transition-colors duration-300 shadow-lg" data-aos="zoom-in" data-aos-delay="600">
                 Click me ♡
             </button>
 
-            <div id="finalMessage" class="hidden-content max-w-lg mt-8 text-center">
-                <div class="bg-white/80 backdrop-blur-sm p-8 rounded-lg shadow-xl">
+            <div id="finalMessage" class="hidden-content max-w-lg mt-8 text-center w-full">
+                <div class="bg-white/80 backdrop-blur-sm p-8 rounded-lg shadow-xl border border-pink/30">
                     <p class="mb-4">Kalau kamu sampai di sini... berarti kamu sudah membaca semuanya.</p>
                     <p class="mb-4">Jadi sekarang aku cuma mau bilang:</p>
                     <p class="serif text-2xl text-pink mb-4">Happy 1 Month, Puput. ♡</p>
                     <p class="italic text-sm">Semoga setelah halaman ini selesai, cerita kita belum.</p>
-                    <p class="mt-4 handwritten text-lg">— dari aku, untuk kamu.</p>
+                    <p class="mt-4 handwritten text-lg text-brown">— dari aku, untuk kamu.</p>
                 </div>
             </div>
         </div>
@@ -489,21 +602,35 @@
         AOS.init({
             duration: 800,
             once: true,
-            offset: 100
+            offset: 50
         });
 
-        // Toggle Timeline
+        // Typewriter Effect
+        const typeText = "kamu.";
+        let typeIndex = 0;
+        function typeWriter() {
+            if (typeIndex < typeText.length) {
+                document.getElementById("typewriter").innerHTML += typeText.charAt(typeIndex);
+                typeIndex++;
+                setTimeout(typeWriter, 150);
+            } else {
+                document.getElementById("typewriter").classList.remove('cursor');
+            }
+        }
+        setTimeout(typeWriter, 1500); // Start after AOS animation
+
+        // Toggle Timeline (Smooth)
         function toggleTimeline(element) {
-            const hiddenP = element.nextElementSibling;
-            hiddenP.classList.toggle('hidden');
-            const span = element.querySelector('span');
-            if(span) span.style.display = 'none';
+            const hiddenDiv = element.nextElementSibling;
+            hiddenDiv.classList.toggle('show');
         }
 
         // Toggle Letter
         function toggleLetter() {
             const extra = document.getElementById('extraLetter');
+            const btnText = document.getElementById('letterBtnText');
             extra.classList.toggle('show');
+            btnText.innerText = extra.classList.contains('show') ? '[ Sembunyikan ]' : '[ Continue reading... ]';
         }
 
         // Mini Game
@@ -525,9 +652,10 @@
         // Constellation
         function showReason(title, desc) {
             const display = document.getElementById('reasonDisplay');
+            display.style.borderColor = "var(--dusty-pink)";
             display.innerHTML = `
                 <h3 class="serif text-2xl text-dusty-pink mb-4">${title}</h3>
-                <p class="italic text-cream/90">${desc}</p>
+                <p class="italic text-cream/90 leading-relaxed">${desc}</p>
             `;
         }
 
@@ -564,6 +692,38 @@
                 confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.9), y: Math.random() - 0.2 }, shapes: ['text'], text: '❤️', scalar: 2 });
                 confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.9), y: Math.random() - 0.2 }, shapes: ['text'], text: '♡', scalar: 2 });
             }, 250);
+        }
+
+        // Music Player
+        let isPlaying = false;
+        const music = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                musicBtn.innerHTML = '♫';
+                musicBtn.classList.remove('bg-pink');
+                musicBtn.classList.add('bg-brown');
+            } else {
+                music.play().catch(e => console.log("Autoplay blocked"));
+                musicBtn.innerHTML = '❚❚';
+                musicBtn.classList.remove('bg-brown');
+                musicBtn.classList.add('bg-pink');
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // Back to Top Button
+        const topBtn = document.getElementById('topBtn');
+        window.onscroll = function() {
+            if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+                topBtn.classList.remove('hidden');
+            } else {
+                topBtn.classList.add('hidden');
+            }
+        };
+        function topFunction() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
