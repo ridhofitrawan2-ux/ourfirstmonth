@@ -367,14 +367,14 @@
                         <div class="flip-card-back"><p class="serif text-sm md:text-base">Suara kamu yang bikin tenang</p></div>
                     </div>
                 </div>
-                <!-- Card 9 (Added) -->
+                <!-- Card 9 -->
                 <div class="flip-card" data-aos="flip-left" onclick="this.classList.toggle('flipped')">
                     <div class="flip-card-inner">
                         <div class="flip-card-front"><span class="text-4xl">♡ 09</span><span class="mt-2 font-bold">OPEN ME</span></div>
                         <div class="flip-card-back"><p class="serif text-sm md:text-base">Cara kamu bikin aku ngerasa dihargai</p></div>
                     </div>
                 </div>
-                <!-- Card 10 (Added) -->
+                <!-- Card 10 -->
                 <div class="flip-card" data-aos="flip-left" data-aos-delay="50" onclick="this.classList.toggle('flipped')">
                     <div class="flip-card-inner">
                         <div class="flip-card-front"><span class="text-4xl">♡ 10</span><span class="mt-2 font-bold">OPEN ME</span></div>
@@ -564,7 +564,21 @@
         </div>
     </section>
 
-    <!-- 14 - Last Page -->
+    <!-- 14 - Wish Box (Kirim ke WhatsApp) -->
+    <section class="py-24 px-6 bg-lavender/20">
+        <div class="max-w-2xl mx-auto text-center">
+            <h2 class="serif text-4xl mb-4" data-aos="fade-up">Kirim Harapanmu ♡</h2>
+            <p class="text-brown/70 mb-12 handwritten text-2xl" data-aos="fade-up" data-aos-delay="100">Tulis pesan harapan buat kita kedepannya ya...</p>
+            <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg" data-aos="zoom-in">
+                <textarea id="wishMessage" rows="5" class="w-full p-4 border-2 border-pink/30 rounded-lg focus:outline-none focus:border-pink transition-colors bg-cream/50 text-brown font-light resize-none" placeholder="Tulis harapanmu disini... (misal: Semoga kita makin sayang dan awet sampe tua!)"></textarea>
+                <button onclick="sendToWhatsApp()" class="mt-4 w-full bg-brown text-cream px-8 py-3 rounded-full text-lg hover:bg-pink transition-colors duration-300 shadow-md flex items-center justify-center gap-2">
+                    Kirim ke WhatsApp Aku ♡
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 15 - Last Page -->
     <section class="relative h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
         <div class="absolute inset-0 z-0">
             <img src="https://z-cdn-media.chatglm.cn/files/90e6b0b1-356b-4399-8e5d-489fd09a1eac.jpg?auth_key=1886421420-9763c27efaed4cb8b5589e5d9cc2dec3-0-1684ecd4145d7229b9dc538d6889e9ff" alt="Last" class="w-full h-full object-cover opacity-40">
@@ -724,6 +738,18 @@
         };
         function topFunction() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Send Wish to WhatsApp
+        function sendToWhatsApp() {
+            const message = document.getElementById('wishMessage').value;
+            const phoneNumber = '6281538721336'; 
+            if (message.trim() === '') {
+                alert("Isi dulu harapannya ya, Puput ♡");
+                return;
+            }
+            const waLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(waLink, '_blank');
         }
     </script>
 </body>
